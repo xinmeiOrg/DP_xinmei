@@ -138,7 +138,7 @@ function list(){
 	    <div class="app01"></div><div class="app01"></div><div class="app01"></div>
 					 
 			<div class="copyright sn-block tc pdlayout sn-txt-muted">
-				Copyright © 2015 -<script type="text/javascript">document.write(new Date().getFullYear())</script> ${config.siteName } 版权所有
+    		Copyright©2012-2017&nbsp;<a style="color:#909090" href="http://www.miitbeian.gov.cn/">粤ICP备17142618号</a>&nbsp;广州芯媒信息科技有限公司
 			</div>
 </div>
 
