@@ -198,6 +198,8 @@ public class ProductAction extends BaseAction{
 				findProduct.setPicture(product.getPicture());
 				findProduct.setTitle(product.getTitle());
 				findProduct.setContent(product.getContent());
+				findProduct.setBills(product.getBills());
+				findProduct.setMoney(product.getMoney());
 				boolean result = productService.saveOrUpdate(findProduct);
 				//修改成功
 				if(result){

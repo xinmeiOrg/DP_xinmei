@@ -129,6 +129,8 @@ function choose_bg() {
     		</form>
         </div>
 	</div>
-	<div class="bottom">Copyright &copy; 2012 - 2017 <a href="#" target="_blank">芯媒科技</a> </div>
+	<div class="bottom">
+		Copyright©2012-2017&nbsp;<a style="color:#333" href="http://www.miitbeian.gov.cn/">粤ICP备17142618号</a>&nbsp;广州芯媒信息科技有限公司
+	</div>
 </body>
 </html>

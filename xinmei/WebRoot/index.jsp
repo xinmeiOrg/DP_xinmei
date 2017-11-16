@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="sn-nav sn-block sn-nav-search">
 		<div class="sn-nav index-nav wbox sticky" id="searchFixed" style="position: static;">
+				<!-- <img src="images/xinmei_logo.jpg" class="logo"> -->
 				<img src="${config.logo }" class="logo">
 				<div class="sn-nav-title of">
 				${config.siteName }
@@ -59,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="app01"></div>
 		<div class="app06 floor-area" id="navCarousel_box">
 				<ul class="fix">
-					<li><a name="index_none_floor3_330052" href="user">
+					<li><a name="index_none_floor3_330052" href="user/index.jsp">
 					<img alt="" data-src="done" src="images/143262193526726791.jpg"><div class="title">会员中心</div></a></li>
 					<li><a name="index_none_floor3_330051" href="user/promote.jsp">
 					<img alt="" data-src="done" src="images/143262190460206422.jpg"><div class="title">推广链接</div>
@@ -68,8 +69,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a name="index_none_floor3_330054" href="user/financialList.jsp">
 					<img alt="" data-src="done" src="images/143385213411317884.jpg">
 					<div class="title">财务明细</div></a></li>
+					<!--
 					<li><a name="index_none_floor3_330055" href="${config.downloadUrl }">
 					<img alt="" data-src="done" src="images/143385208970280372.jpg"><div class="title">客户端下载</div></a></li>
+					-->
+					<li><a name="index_none_floor3_330055" href="user/commissionList.jsp">
+						<img alt="" data-src="done" src="images/ico-mylc.png"><div class="title">佣金明细</div></a></li>
+
 				</ul>
 		</div>
 		<div class="app01"></div>

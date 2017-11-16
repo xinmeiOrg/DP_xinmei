@@ -288,7 +288,9 @@ public class ProductCateAction extends BaseAction{
 					}else{
 						boolean result = productCateService.delete(findProductCate);
 						if(result){
-							callbackData = BjuiJson.json("200", "删除成功", "ProductCateList", "", "", "true", "", "");
+							//callbackData = BjuiJson.json("200", "删除成功", "ProductCateList", "", "", "true", "", "");
+							callbackData = BjuiJson.json("200", "删除成功", "", "", "", "true", "", "");
+
 						}else{
 							callbackData = BjuiJson.json("300", "删除失败", "", "", "", "", "", "");
 						}
