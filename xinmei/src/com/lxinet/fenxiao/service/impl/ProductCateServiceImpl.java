@@ -25,14 +25,14 @@ public class ProductCateServiceImpl<T extends ProductCate> extends BaseServiceIm
 	@Resource(name="productService")
 	private IProductService<Product> productService;
 	
-	@Override
-	public boolean delete(T baseBean) {
-//		List<Product> productList = productService.list("from Product where productCate.id="+baseBean.getId());
-//		for (Product product : productList) {
-//			productService.delete(product);
-//		}
-		return productCateDao.delete(baseBean);
-	}
+//	@Override
+//	public boolean delete(T baseBean) {
+////		List<Product> productList = productService.list("from Product where productCate.id="+baseBean.getId());
+////		for (Product product : productList) {
+////			productService.delete(product);
+////		}
+//		return productCateDao.delete(baseBean);
+//	}
 	
 	/**
 	 * 通过上级栏目ID查找子栏目

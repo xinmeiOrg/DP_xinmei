@@ -125,5 +125,20 @@ public class Orders extends BaseBean implements java.io.Serializable {
 	public void setPayDate(Date payDate) {
 		this.payDate = payDate;
 	}
+
+	public enum PayStatus{
+		NONPAYMENT("未支付"),PAID("已支付");
+
+		private String label;
+
+		private PayStatus(String label) {
+			this.label = label;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+	}
 	
 }

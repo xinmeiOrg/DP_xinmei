@@ -20,9 +20,9 @@ import com.lxinet.fenxiao.service.IProductService;
 public class ProductServiceImpl<T extends Product> extends BaseServiceImpl<T> implements IProductService<T>{
 	@Resource(name="kamiService")
 	private IKamiService<Kami> kamiService;
-	@Override
-	public boolean delete(T baseBean) {
-//		kamiService.deleteAll("Kami","product.id="+baseBean.getId());
-		return baseDao.delete(baseBean);
-	}
+//	@Override
+//	public boolean delete(T baseBean) {
+////		kamiService.deleteAll("Kami","product.id="+baseBean.getId());
+//		return baseDao.delete(baseBean);
+//	}
 }
