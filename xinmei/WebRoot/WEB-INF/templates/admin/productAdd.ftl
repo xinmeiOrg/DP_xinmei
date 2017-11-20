@@ -52,7 +52,7 @@ function S_NodeClick(event, treeId, treeNode) {
 		                           <label for="fatherId" class="control-label x90">上级分类：</label>
 		                       <input type="hidden" name="product.productCate.id" id="fatherId2" value="0">
 	                        	<input type="text" name="menus" id="fathername" data-toggle="selectztree" size="18" data-tree="#j_select_tree2" data-rule="required" readonly>
-	                                <ul id="j_select_tree2" class="ztree hide" data-toggle="ztree" data-expand-all="true" data-check-enable="true" data-chk-style="radio" data-radio-type="all" data-on-check="S_NodeCheck" data-on-click="S_NodeClick">
+	                                <ul id="j_select_tree2" class="ztree hide" data-toggle="ztree" data-expand-all="true" ="true" data-chk-style="radio" data-radio-type="all" data-on-check="S_NodeCheck" data-on-click="S_NodeClick">
 				                    ${zNodes}
 				                    </ul>
 		                      </td>

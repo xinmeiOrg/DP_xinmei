@@ -88,7 +88,7 @@ String id = request.getParameter("id");
             <li data-name="prodDetail_none_main_prodSpec" class="current">详情</li>
         </ul>
         <div>
-            <div class="sn-tab-content wbox" style="width: 300%; -webkit-transform: translateX(0px);">
+            <div class="sn-tab-content wbox" style="width: 100%; -webkit-transform: translateX(0px);">
                 <div class="desc-spec sn-tab-box wbox-flex" style="height: auto;">
                    
                     <div class="desc-spec-sale desc-spec-item" style="-webkit-transform-origin: 0px 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
