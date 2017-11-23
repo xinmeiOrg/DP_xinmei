@@ -61,5 +61,14 @@ public class Recharge extends BaseBean implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Recharge{" +
+				"money=" + money +
+				", user=" + user +
+				", no='" + no + '\'' +
+				", status=" + status +
+				'}';
+	}
 }

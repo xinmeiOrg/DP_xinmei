@@ -39,7 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		if(money == ""){
   			alertDefaultStyle("mini", "请输入充值金额");
   		}else{
-  			window.location.href="alipayApi?money="+money;
+//  			window.location.href="alipayApi?money="+money;
+  			window.location.href="alipayApi?money="+money+"&orderType=RECHARGE";
   		}
   	}
     </script>

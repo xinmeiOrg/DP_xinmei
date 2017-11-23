@@ -25,18 +25,16 @@ public class AlipayConfig {
 	
 	//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	// 合作身份者ID，以2088开头由16位纯数字组成的字符串
-	public static String partner = "285684519923417943";
+	public static String partner = "2017111409932001";
 	
-	// 收款支付宝账号
-	public static String seller_email = "ishangluo1@qq.com";
 	// 商户的私钥
-	public static String key = "72e2043ee4e74164b66f8fb9d1545248";
+	public static String key = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCYaQzqmlbQYbooArMBwQ8uZJyGFGilYBAbSzdFgzXrWxiY5EvrR2OfR4gPFmhTgkFZcnjjLn4qloULsU3RTJaXSRwzyFz1XlN1FQk72XFNmw9kq71HvmkjUAtuuJuHnCzXZCy9TjGSAyzcoQ";
 
 	//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	
 
 	// 调试用，创建TXT日志文件夹路径
-	public static String log_path = "D:\\";
+	public static String log_path = "/Users/yanyuan/Documents/xinmei_log";
 
 	// 字符编码格式 目前支持 gbk 或 utf-8
 	public static String input_charset = "utf-8";
