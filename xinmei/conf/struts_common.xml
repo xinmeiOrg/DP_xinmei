@@ -5,6 +5,8 @@
 <struts>
 	<package name="commonAction" extends="struts-default" namespace="/admin">
     	<action name="uploadImages" class="uploadAction" method="doUpload">
+		</action>
+		<action name="downloadImages" class="uploadAction" method="download">
     	</action>
 	</package>
 </struts>  

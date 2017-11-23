@@ -5,7 +5,7 @@
         $(this).bjuiajax('ajaxDone', json)
         if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
             $('#logo').val(json.filename)
-            $('#logo_span_pic').html('<img src="../'+ json.filename +'" height="80px">')
+            $('#logo_span_pic').html('<img src="downloadImages?fileName='+ json.filename +'" height="80px">')
         }
     }
     
@@ -15,7 +15,7 @@
         $(this).bjuiajax('ajaxDone', json)
         if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
             $('#weixin').val(json.filename)
-            $('#weixin_span_pic').html('<img src="../'+ json.filename +'" height="80px">')
+            $('#weixin_span_pic').html('<img src="downloadImages?fileName='+ json.filename +'" height="80px">')
         }
     }
 </script>
@@ -56,7 +56,7 @@
                     	<td>
                             <label for="j_dialog_code" class="control-label x120">LOGO：</label>
                             <input type="hidden" name="config.logo" id="logo" data-rule="" size="30" value="${config.logo!''}">
-                        	<span id="logo_span_pic"><#if (config.logo)!=""><img src="../${config.logo!""}" height="80px"/></#if></span>
+                        	<span id="logo_span_pic"><#if (config.logo)!=""><img src="downloadImages?fileName=${config.logo!""}" height="80px"/></#if></span>
                         	<div style="display:inline-block; vertical-align:middle;">
 							    <div id="logo_pic_up" data-toggle="upload"
 							     	data-uploader="uploadImages" 
@@ -92,7 +92,7 @@
                         <td>
                             <label for="j_dialog_name" class="control-label x120">首页大图：</label>
                             <input type="hidden" name="config.weixin" id="weixin" data-rule="" size="30" value="${config.weixin!''}">
-                        	<span id="weixin_span_pic"><#if (config.weixin)!=""><img src="../${config.weixin!""}" height="80px"/></#if></span>
+                        	<span id="weixin_span_pic"><#if (config.weixin)!=""><img src="downloadImages?fileName=${config.weixin!""}" height="80px"/></#if></span>
                         	<div style="display:inline-block; vertical-align:middle;">
 							    <div id="weixin_pic_up" data-toggle="upload"
 							     	data-uploader="uploadImages" 

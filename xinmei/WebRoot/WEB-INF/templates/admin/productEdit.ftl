@@ -5,7 +5,7 @@
         $(this).bjuiajax('ajaxDone', json)
         if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
             $('#picture').val(json.filename)
-            $('#picture_span_pic').html('<img src="../'+ json.filename +'" height="80px">')
+            $('#picture_span_pic').html('<img src="downloadImages?fileName='+ json.filename +'" height="80px">')
         }
     }
 </script>
@@ -72,7 +72,7 @@ function S_NodeClick(event, treeId, treeNode) {
 							        data-on-upload-success="picture_upload_success" 
 							        data-icon="cloud-upload"></div>
 							</div>
-							<span id="picture_span_pic"><#if product.picture??><img src="../${product.picture}" height="80px"></#if></span>
+							<span id="picture_span_pic"><#if product.picture??><img src="downloadImages?fileName=${product.picture}" height="80px"></#if></span>
                         </td>
                     </tr>
 	                    <tr>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lxinet.fenxiao.entities.Admin;
+import org.apache.commons.codec.binary.StringUtils;
 
 
 public class AdminLoginFilter implements Filter {
@@ -34,7 +35,13 @@ public class AdminLoginFilter implements Filter {
 		if(!"".equals(session.getAttribute("loginAdmin"))){
 			loginAdmin = (Admin) session.getAttribute("loginAdmin");
 		}
-		if(loginAdmin==null || loginAdmin.getId()==null){
+
+		StringBuffer requestUrl = request.getRequestURL();
+		//排除指定URL过滤
+		if(requestUrl != null
+			&& requestUrl.indexOf("downloadImages") > -1){
+			chain.doFilter(request, response);
+		}else if(loginAdmin==null || loginAdmin.getId()==null){
 			response.sendRedirect(request.getContextPath()+"/adminLogin");
 		}else{
 			chain.doFilter(request, response);

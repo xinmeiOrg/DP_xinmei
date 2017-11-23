@@ -78,7 +78,7 @@ function list(){
 	        if(data.status==1){
 	        	var list = data.list;
 	        	for(var i=0;i<list.length;i++){
-	        		$("#productsList").append("<li class='wbox' id='"+list[i].id+"'><a class='link' href='detail?id="+list[i].id+"'></a><a href='detail?id="+list[i].id+"'><div class='img'><img data-src='done' alt='' src='"+list[i].picture+"' id='pi"+list[i].id+"'><span class='bang-t bang-t-35'></span></div></a><div class='wbox-flex'><a href='detail?id="+list[i].id+"'><p class='name'>"+list[i].title+"</p></a><p class='info'></p><div class='price' id='sp"+list[i].id+"'><span class='fl' id='sprice"+list[i].id+"'>¥"+list[i].money+"</span></div></div></li>");
+	        		$("#productsList").append("<li class='wbox' id='"+list[i].id+"'><a class='link' href='detail?id="+list[i].id+"'></a><a href='detail?id="+list[i].id+"'><div class='img'><img data-src='done' alt='' src='admin/downloadImages?fileName="+list[i].picture+"' id='pi"+list[i].id+"'><span class='bang-t bang-t-35'></span></div></a><div class='wbox-flex'><a href='detail?id="+list[i].id+"'><p class='name'>"+list[i].title+"</p></a><p class='info'></p><div class='price' id='sp"+list[i].id+"'><span class='fl' id='sprice"+list[i].id+"'>¥"+list[i].money+"</span></div></div></li>");
 	        	}
 	        	if(data.isNextPage==0){
 	        		$("#nextPage").html("已全部加载完");

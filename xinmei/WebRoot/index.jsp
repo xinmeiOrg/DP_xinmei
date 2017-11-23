@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="sn-nav sn-block sn-nav-search">
 		<div class="sn-nav index-nav wbox sticky" id="searchFixed" style="position: static;">
 				<!-- <img src="images/xinmei_logo.jpg" class="logo"> -->
-				<img src="${config.logo }" class="logo">
+				<img src="admin/downloadImages?fileName=${config.logo }" class="logo">
 				<div class="sn-nav-title of">
 				${config.siteName }
 				</div>
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul class="slide-ul fix">
 						<li>
 							<a name="sjzx_none_floor1_lb1" href="javascript:void(0)">
-								<img src="${config.weixin }">
+								<img src="admin/downloadImages?fileName=${config.weixin }">
 							</a>
 						</li>
 					</ul>
@@ -102,7 +102,7 @@ function list(){
 	        if(data.status==1){
 	        	var list = data.list;
 	        	for(var i=0;i<list.length;i++){
-	        		$("#productsList").append("<li class='wbox' id='"+list[i].id+"'><a class='link' href='detail?id="+list[i].id+"'></a><a href='detail?id="+list[i].id+"'><div class='img'><img data-src='done' alt='' src='"+list[i].picture+"' id='pi"+list[i].id+"'><span class='bang-t bang-t-35'></span></div></a><div class='wbox-flex'><a href='detail?id="+list[i].id+"'><p class='name'>"+list[i].title+"</p></a><p class='info'></p><div class='price' id='sp"+list[i].id+"'><span class='fl' id='sprice"+list[i].id+"'>¥"+list[i].money+"</span></div></div></li>");
+	        		$("#productsList").append("<li class='wbox' id='"+list[i].id+"'><a class='link' href='detail?id="+list[i].id+"'></a><a href='detail?id="+list[i].id+"'><div class='img'><img data-src='done' alt='' src='admin/downloadImages?fileName="+list[i].picture+"' id='pi"+list[i].id+"'><span class='bang-t bang-t-35'></span></div></a><div class='wbox-flex'><a href='detail?id="+list[i].id+"'><p class='name'>"+list[i].title+"</p></a><p class='info'></p><div class='price' id='sp"+list[i].id+"'><span class='fl' id='sprice"+list[i].id+"'>¥"+list[i].money+"</span></div></div></li>");
 	        	}
 	        	if(data.isNextPage==0){
 	        		$("#nextPage").html("已全部加载完");
