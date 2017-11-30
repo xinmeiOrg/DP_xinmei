@@ -141,4 +141,21 @@ public class Orders extends BaseBean implements java.io.Serializable {
 
 	}
 	
+	public enum PayChannel{
+		AMOUNT_PAY("余额支付"),
+		ALI_PAY("支付宝支付"),
+		WEIXIN_PAY("微信支付");
+
+		private String label;
+
+		private PayChannel(String label) {
+			this.label = label;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+	}
+	
 }

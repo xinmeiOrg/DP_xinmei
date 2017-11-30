@@ -20,8 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript" src="../js/zepto.min.js"></script>
   <script type="text/javascript">
   function pay(){
+	  var payChannel = $('#payChannel').val();
   		$.ajax({
-	        url: "../ordersPay?no=${requestScope.orders.no }",
+	        url: "../ordersPay?no=${requestScope.orders.no }&payChannel="+payChannel,
 	        type: "get",
 	        dataType: "json",
 	        async: false,
@@ -71,7 +72,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li><label>支付方式</label>
        <div class="wbox-flex tr">
         <div id="selectShipModel" style="-webkit-transform-origin: 0px 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
-         	余额支付
+         	<select id="payChannel">
+         		<option value="AMOUNT_PAY">余额支付</option>
+         		<option value="ALI_PAY">支付宝</option>
+         		<option value="WEIXIN_PAY">微信</option>
+         	</select>
         </div>
        </div></li>
      </ul>
