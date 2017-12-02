@@ -3,6 +3,7 @@ package com.lxinet.fenxiao.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -544,6 +545,7 @@ public class UserAction extends BaseAction {
 				json.put("message", "佣金额度不足");
 			}else{
 				findUser.setBalance(findUser.getBalance()+money);
+				findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 				findUser.setCommission(findUser.getCommission()-money);
 				userService.saveOrUpdate(findUser);
 				//添加财务信息
@@ -613,7 +615,9 @@ public class UserAction extends BaseAction {
 					json.put("message", "货币额度不足");
 				}else{
 					findUser.setBalance(findUser.getBalance()-money);
+					findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 					toUser.setBalance(toUser.getBalance()+money);
+					toUser.setBalance(new BigDecimal(toUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 					userService.saveOrUpdate(findUser);
 					userService.saveOrUpdate(toUser);
 					//添加财务信息

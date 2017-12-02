@@ -1,6 +1,7 @@
 package com.lxinet.fenxiao.action;
 
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,8 +11,7 @@ import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import com.lxinet.fenxiao.service.*;
-import com.lxinet.fenxiao.utils.StaticFileUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -20,9 +20,13 @@ import com.lxinet.fenxiao.entities.Financial;
 import com.lxinet.fenxiao.entities.Orders;
 import com.lxinet.fenxiao.entities.Recharge;
 import com.lxinet.fenxiao.entities.User;
-import com.lxinet.fenxiao.pay.alipay.AlipayConfig;
-import com.lxinet.fenxiao.pay.alipay.AlipayNotify;
-import com.lxinet.fenxiao.pay.alipay.AlipaySubmit;
+import com.lxinet.fenxiao.service.IAliWapPayService;
+import com.lxinet.fenxiao.service.IConfigService;
+import com.lxinet.fenxiao.service.IFinancialService;
+import com.lxinet.fenxiao.service.IOrdersService;
+import com.lxinet.fenxiao.service.IRechargeService;
+import com.lxinet.fenxiao.service.IUserService;
+import com.lxinet.fenxiao.utils.StaticFileUtil;
 
 
 @Controller("alipayAction")
@@ -95,17 +99,24 @@ public class AlipayAction extends BaseAction {
 			//判断该笔订单是否在商户网站中已经做过处理
 			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 			//如果有做过处理，不执行商户的业务程序
-			Recharge findRecharge = rechargeService.findByNo(out_trade_no);
-			if (findRecharge.getStatus() == 0) {
-				findRecharge.setStatus(1);
-				rechargeService.saveOrUpdate(findRecharge);
-				User findUser = userService.findById(User.class, findRecharge.getUser().getId());
-				findUser.setBalance(findUser.getBalance() + findRecharge.getMoney());
-				userService.saveOrUpdate(findUser);
-			}
+			if(StringUtils.startsWith(out_trade_no,"RECHARGE")){
+				Recharge findRecharge = rechargeService.findByNo(out_trade_no);
+				if (findRecharge.getStatus() == 0) {
+					findRecharge.setStatus(1);
+					rechargeService.saveOrUpdate(findRecharge);
+					User findUser = userService.findById(User.class, findRecharge.getUser().getId());
+					findUser.setBalance(findUser.getBalance() + findRecharge.getMoney());
+					findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+					userService.saveOrUpdate(findUser);
 
-			//该页面可做页面美工编辑
-			out.println("<br>交易成功!<br>订单号:" + out_trade_no + "<br>支付金额:" + findRecharge.getMoney() + "");
+				}
+				//该页面可做页面美工编辑
+				response.sendRedirect("user/paySuccess.jsp?orderType=RECHARGE&no="+out_trade_no);
+			}else if(StringUtils.startsWith(out_trade_no,"ORDERS")){
+				System.out.println("returnUrl....在线购买");
+				ordersService.generateCosumeInfo(out_trade_no);
+				response.sendRedirect("user/paySuccess.jsp?orderType=ORDERS&no="+out_trade_no);
+			}
 			//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
 			//////////////////////////////////////////////////////////////////////////////////////////
@@ -202,14 +213,21 @@ public class AlipayAction extends BaseAction {
 				//判断该笔订单是否在商户网站中已经做过处理
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//如果有做过处理，不执行商户的业务程序
-				Recharge findRecharge = rechargeService.findByNo(out_trade_no);
-				if(findRecharge.getStatus()==0){
-					findRecharge.setStatus(1);
-					rechargeService.saveOrUpdate(findRecharge);
-					User findUser = userService.findById(User.class, findRecharge.getUser().getId());
-					findUser.setBalance(findUser.getBalance()+findRecharge.getMoney());
-					userService.saveOrUpdate(findUser);
+				if(StringUtils.startsWith(out_trade_no,"RECHARGE")){
+					Recharge findRecharge = rechargeService.findByNo(out_trade_no);
+					if(findRecharge.getStatus()==0){
+						findRecharge.setStatus(1);
+						rechargeService.saveOrUpdate(findRecharge);
+						User findUser = userService.findById(User.class, findRecharge.getUser().getId());
+						findUser.setBalance(findUser.getBalance()+findRecharge.getMoney());
+						userService.saveOrUpdate(findUser);
+					}
+				}else if(StringUtils.startsWith(out_trade_no,"ORDERS")){
+					System.out.println("notifyUrl ... 在线购买");
+					ordersService.generateCosumeInfo(out_trade_no);
+
 				}
+				
 				out.println("success");	//请不要修改或删除
 			}else {
 				System.out.println("订单[out_trade_no="+out_trade_no+"]验证失败, 商家ID不一致.");

@@ -2,6 +2,7 @@ package com.lxinet.fenxiao.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -243,6 +244,7 @@ public class RechargeCardAction extends BaseAction {
 					financial.setRemark("充值卡充值,充值卡卡号:"+findRechargeCard.getNo());
 					financialService.saveOrUpdate(financial);
 					findUser.setBalance(findUser.getBalance()+findRechargeCard.getMoney());
+					findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 					userService.saveOrUpdate(findUser);
 					//设置为已被使用
 					findRechargeCard.setStatus(1);

@@ -2,6 +2,7 @@ package com.lxinet.fenxiao.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +123,7 @@ public class FinancialAction extends BaseAction {
 								financial.setCreateDate(new Date());
 								financial.setDeleted(false);
 								findUser.setBalance(findUser.getBalance()+financial.getMoney());
+								findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 								//设置余额
 								financial.setBalance(findUser.getBalance());
 								financial.setRemark("扣除游戏额度");

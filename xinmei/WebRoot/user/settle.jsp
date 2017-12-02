@@ -31,6 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	if(data.href!=null){
 	        		setTimeout("window.location.href='"+data.href+"';",2000);
 	        	}
+	        	if(data.aliPayForm != null){
+	        		$('#aliPayForm').html(data.aliPayForm);
+	        	}
 	        	if ("1" == data.status) {
 	            	setTimeout("window.location.href='ordersDetail?no="+data.no+"';",2000);
 	            }
@@ -43,6 +46,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </script>
  </head>
  <body>
+ <div id="aliPayForm">
+ </div>
   <section class="ww">
    <div class="loagMask" id="loading" style="-webkit-transform-origin: 0px 0px 0px; opacity: 1; -webkit-transform: scale(1, 1); display: none;">
     <div class="sn-mask-loading fixedLoading"></div>
@@ -75,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          	<select id="payChannel">
          		<option value="AMOUNT_PAY">余额支付</option>
          		<option value="ALI_PAY">支付宝</option>
-         		<option value="WEIXIN_PAY">微信</option>
+         		<!--<option value="WEIXIN_PAY">微信</option>  -->
          	</select>
         </div>
        </div></li>

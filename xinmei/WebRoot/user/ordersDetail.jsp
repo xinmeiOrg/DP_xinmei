@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <p><label class="w3">付款时间</label>：${orders.payDate }</p>
        <p><label class="w3">订单状态</label>：
        <c:if test="${orders.status==0 }">未付款
-       <a href="javascript:pay()" id="submitOrderDivId" class="sn-btn sn-btn-assertive sn-btn-big">付款</a>
+      <!--  <a href="javascript:pay()" id="submitOrderDivId" class="sn-btn sn-btn-assertive sn-btn-big">付款</a> -->
        </c:if>
        <c:if test="${orders.status==1 }">已付款</c:if>
        </p>

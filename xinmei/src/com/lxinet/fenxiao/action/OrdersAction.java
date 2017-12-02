@@ -28,6 +28,7 @@ import com.lxinet.fenxiao.entities.Orders.PayChannel;
 import com.lxinet.fenxiao.entities.Orders.PayStatus;
 import com.lxinet.fenxiao.entities.Product;
 import com.lxinet.fenxiao.entities.User;
+import com.lxinet.fenxiao.service.IAliWapPayService;
 import com.lxinet.fenxiao.service.ICommissionService;
 import com.lxinet.fenxiao.service.IConfigService;
 import com.lxinet.fenxiao.service.IFinancialService;
@@ -67,6 +68,8 @@ public class OrdersAction extends BaseAction {
 	private String ftlFileName;
 	@Resource(name = "configService")
 	private IConfigService<Config> configService;
+	@Resource(name = "aliWapPayService")
+	private IAliWapPayService aliWapPayService;
 
 	/**
 	 * 订单列表 作者：Cz
@@ -182,7 +185,7 @@ public class OrdersAction extends BaseAction {
 				int n = random.nextInt(9999);
 				n = n + 10000;
 				// 生成订单号
-				String no = System.currentTimeMillis() + "" + n;
+				String no = "ORDERS" +  System.currentTimeMillis() + "" + n;
 				newOrders.setNo(no);
 				// 设置订单创建日期
 				newOrders.setCreateDate(new Date());
@@ -243,6 +246,7 @@ public class OrdersAction extends BaseAction {
 			json.put("href", "../login.jsp");
 		}
 		
+		
 		try{
 			
 			checkOrder(loginUser, findOrders, no, payChannel);
@@ -254,20 +258,37 @@ public class OrdersAction extends BaseAction {
 			if (kamiList.size() < findOrders.getProductNum()) {
 				throw new BusinessException("库存不足，请联系管理员");
 			}
+			
+			PayStatus payStatus = PayStatus.NONPAYMENT;
 
-			PayStatus payStatus = payOrder(findUser, findOrders, payChannel);
+			if(PayChannel.ALI_PAY.toString().equals(payChannel)){
+				String aliPayForm = aliWapPayService.createAliWapPayInfo(findOrders.getNo(), findOrders.getMoney(), findOrders.getProductName(), findOrders.getProductName(), "BUY", findOrders.getId());
+				json.put("aliPayForm", aliPayForm);
+			}else if(PayChannel.AMOUNT_PAY.toString().equals(payChannel)){
+				findUser.setBalance(findUser.getBalance() - findOrders.getMoney());
+				if (findUser.getStatus() == 0) {
+					findUser.setStatus(1);
+					findUser.setStatusDate(new Date());
+				}
+				userService.saveOrUpdate(findUser);
+//				findOrders.setStatus(1);
+//				ordersService.saveOrUpdate(findOrders);
+				payStatus = PayStatus.PAID;
+			}
+			
 
-			if (payStatus != PayStatus.PAID) {
-				throw new BusinessException("支付失败");
+			if (payStatus == PayStatus.PAID) {
+				
+				// 支付完成生成消费信息
+				ordersService.generateCosumeInfo(findOrders.getNo());
+
+				json.put("status", "1");
+				json.put("message", "付款成功");
+				json.put("no", findOrders.getNo());
 
 			}
 			
-			// 支付完成生成消费信息
-			generateCosumeInfo(findUser, findOrders, kamiList);
-
-			json.put("status", "1");
-			json.put("message", "付款成功");
-			json.put("no", findOrders.getNo());
+			
 			
 		}catch(BusinessException e){
 			System.out.println("BusinessException : " + e.getMessage());
@@ -282,92 +303,14 @@ public class OrdersAction extends BaseAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		out.print(json.toString());
 		out.flush();
 		out.close();
+		return;
 	}
-
-	/**
-	 * 支付完成，生成消费信息
-	 * @param findUser
-	 * @param findOrders
-	 * @param kamiList
-	 */
-	private void generateCosumeInfo(User findUser, Orders findOrders, List<Kami> kamiList) {
-		String summary = "分销码信息:<br/>";
-		Date date = new Date();
-		for (Kami kami : kamiList) {
-			summary += "卡号:" + kami.getNo() + ",密码:" + kami.getPassword() + "<br/>";
-			kami.setSaleTime(date);
-			kami.setOrdersNo(findOrders.getNo());
-			kami.setStatus(1);
-			kamiService.saveOrUpdate(kami);
-		}
-		findOrders.setSummary(summary);
-		findOrders.setPayDate(date);
-		ordersService.saveOrUpdate(findOrders);
-
-		// 添加财务信息
-		Financial financial = new Financial();
-		financial.setType(0);
-		financial.setMoney(-findOrders.getMoney());
-		financial.setNo(System.currentTimeMillis() + "");
-		// 设置该交易操作人信息
-		financial.setOperator(findUser.getName());
-		// 设置用户
-		financial.setUser(findUser);
-		// 设置用户创建日期
-		financial.setCreateDate(new Date());
-		financial.setDeleted(false);
-		// 设置余额
-		financial.setBalance(findUser.getBalance());
-		financial.setPayment("余额付款");
-		financial.setRemark("购买" + findOrders.getProductName());
-		financialService.saveOrUpdate(financial);
-		Config findConfig = configService.findById(Config.class, 1);
-		// 当前用户的上级
-		String levelNos = findUser.getSuperior();
-		if (!StringUtils.isEmpty(levelNos)) {
-			String leverNoArr[] = levelNos.split(";");
-			for (int i = leverNoArr.length - 1, j = 1; i > 0; i--, j++) {
-				if (!StringUtils.isEmpty(leverNoArr[i])) {
-					User levelUser = userService.getUserByNo(leverNoArr[i]);
-					if (levelUser != null) {
-						// 获取佣金比例
-						double commissionRate = 0.0;
-						if (j == 1) {
-							commissionRate = findConfig.getFirstLevel();
-						} else if (j == 2) {
-							commissionRate = findConfig.getSecondLevel();
-						} else if (j == 3) {
-							commissionRate = findConfig.getThirdLevel();
-						}
-
-						// 计算佣金
-						double commissionNum = findOrders.getMoney() * commissionRate;
-						levelUser.setCommission(levelUser.getCommission() + commissionNum);
-						userService.saveOrUpdate(levelUser);
-
-						// 添加佣金信息
-						Commission commission = new Commission();
-						commission.setType(1);
-						commission.setMoney(commissionNum);
-						commission.setNo(System.currentTimeMillis() + "");
-						// 设置该交易操作人信息
-						commission.setOperator(findUser.getName());
-						// 设置用户
-						commission.setUser(levelUser);
-						// 设置用户创建日期
-						commission.setCreateDate(date);
-						commission.setDeleted(false);
-						commission.setLevel(j);
-						commission.setRemark("第" + j + "级用户:编号【" + findUser.getNo() + "】购买商品奖励");
-						commissionService.saveOrUpdate(commission);
-					}
-				}
-			}
-		}
-	}
+	
+	
 
 	/**
 	 * 校验订单
@@ -394,33 +337,7 @@ public class OrdersAction extends BaseAction {
 		}
 	}
 
-	/**
-	 * 订单支付
-	 * @param findUser
-	 * @param findOrders
-	 * @param payChannel
-	 * @return
-	 */
-	private PayStatus payOrder(User findUser, Orders findOrders, String payChannel) {
-		PayStatus payStatus = PayStatus.NONPAYMENT;
-
-		if (StringUtils.equals(payChannel, PayChannel.AMOUNT_PAY.toString())) {
-			findUser.setBalance(findUser.getBalance() - findOrders.getMoney());
-			if (findUser.getStatus() == 0) {
-				findUser.setStatus(1);
-				findUser.setStatusDate(new Date());
-			}
-			userService.saveOrUpdate(findUser);
-			findOrders.setStatus(1);
-			payStatus = PayStatus.PAID;
-
-		} else if (StringUtils.equals(payChannel, PayChannel.WEIXIN_PAY.toString())) {
-
-		} else if (StringUtils.equals(payChannel, PayChannel.ALI_PAY.toString())) {
-
-		}
-		return payStatus;
-	}
+	
 
 	/**
 	 * 订单详情

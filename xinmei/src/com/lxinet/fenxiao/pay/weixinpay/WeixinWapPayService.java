@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2015-7-23
  * @version 1.0
  */
-@Service
 public class WeixinWapPayService {
 	
 	public static Logger logger = LoggerFactory.getLogger(WeixinWapPayService.class);

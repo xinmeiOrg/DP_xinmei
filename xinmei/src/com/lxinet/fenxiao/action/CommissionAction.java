@@ -2,6 +2,7 @@ package com.lxinet.fenxiao.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +123,7 @@ public class CommissionAction extends BaseAction {
 								commission.setCreateDate(new Date());
 								commission.setDeleted(false);
 								findUser.setBalance(findUser.getBalance()+commission.getMoney());
+								findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 								commission.setRemark("扣除游戏额度");
 								boolean res = commissionService.saveOrUpdate(commission);
 								if (res) {
