@@ -220,6 +220,7 @@ public class AlipayAction extends BaseAction {
 						rechargeService.saveOrUpdate(findRecharge);
 						User findUser = userService.findById(User.class, findRecharge.getUser().getId());
 						findUser.setBalance(findUser.getBalance()+findRecharge.getMoney());
+						findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 						userService.saveOrUpdate(findUser);
 					}
 				}else if(StringUtils.startsWith(out_trade_no,"ORDERS")){
