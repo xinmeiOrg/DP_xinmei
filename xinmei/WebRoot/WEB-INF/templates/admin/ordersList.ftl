@@ -23,7 +23,9 @@
                 <th orderField="type">产品单价</th>
                 <th orderField="type">产品数量</th>
                 <th orderField="grade">订单总额</th>
-                <th orderField="grade">订单摘要</th>
+                <th orderField="grade">姓名</th>
+                <th orderField="grade">电话</th>
+               	<th orderField="grade">地址</th>
                 <th orderField="idno">下单时间</th>
                 <th orderField="idno">状态</th>
                 <th width="40">操作</th>
@@ -39,7 +41,9 @@
                 <td>${orders.productMoney!""}</td>
                 <td>${orders.productNum!""}</td>
                 <td>${orders.money}</td>
-                <td>${orders.summary!""}</td>
+                <td>${orders.receiver!""}</td>
+                <td>${orders.receiverPhone!""}</td>
+                <td>${orders.receiverAddress!""}</td>
                 <td>${orders.createDate}</td>
                 <td>
                 <#if orders.status==0>

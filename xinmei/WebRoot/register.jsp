@@ -66,13 +66,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<em class="delete" style="display:none" name="Wap_reg_person_001"></em>
 		</div>
-		<div class="input-a sn-block wbox mt30 pr">
+		<!-- <div class="input-a sn-block wbox mt30 pr">
 			<span>推荐人</span>
 			<div class="wbox-flex ml30 pr">
 				<input type="text" id="tuijianren" name="tuijianren" value="" placeholder="请输入推荐人编号" maxlength="32">	
 			</div>
 			<em class="delete" style="display:none" name="Wap_reg_person_001"></em>
-		</div>
+		</div> -->
 		<a href="javascript:void(0)" id="nextStep" name="Wap_reg_person_005" onclick="register();return false;" class="first-step sn-btn sn-btn-big sn-btn-block m30 sn-btn-positive">注册</a>
 		<p class="assisFun f14 m30"><a href="login.jsp" name="WAP_login_none_register">登录</a>
 		<a href="findPassword.jsp">忘记密码?</a></p>

@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="input-a sn-block wbox mt30 pr">
 			<span>推广链接:</span>
 		<div class="wbox-flex ml30 pr">
-		<input type="text" value="http://<%=request.getServerName() %>/promote?no=${sessionScope.loginUser.no }">
+		<input type="text" value="<%=basePath%>promote?no=${sessionScope.loginUser.no }">
 		</div>
 		</div>
 	</c:if>

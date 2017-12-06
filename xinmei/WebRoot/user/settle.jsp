@@ -18,14 +18,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <link rel="stylesheet" href="../css/cart2.css" />
   <script type="text/javascript" src="../js/jquery.min.js"></script>
   <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script type="text/javascript" src="../js/base64.js"></script>
+  
   <script type="text/javascript">
+  
   function pay(){
+	  var receiver = $('#receiver').val();
+	  var receiverPhone = $('#receiverPhone').val();
+	  var receiverAddress = $('#receiverAddress').val();
+	  if('' == receiver){
+	      	alertDefaultStyle("mini", "请输入姓名");
+	      	return;
+	  }
+	  if('' == receiverPhone){
+	      	alertDefaultStyle("mini", "请输入电话");
+	      	return;
+	  }
+	  if('' == receiverAddress){
+	      	alertDefaultStyle("mini", "请输入地址");
+	      	return;
+	  }
+	  var receiverParam = "{'receiver':'"+receiver+"','receiverPhone':'"+receiverPhone+"','receiverAddress':'"+receiverAddress+"'}";
+
+	  
 	  var payChannel = $('#payChannel').val();
   		$.ajax({
 	        url: "../ordersPay?no=${requestScope.orders.no }&payChannel="+payChannel,
 	        type: "get",
 	        dataType: "json",
 	        async: false,
+	        headers: {
+	            Accept: "application/json; charset=utf-8",
+	           "receiverParam":Base64.encode(receiverParam)
+	        },
 	        success: function(data) {
 	        	alertDefaultStyle("mini", data.message);
 	        	if(data.href!=null){
@@ -44,6 +69,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    });
   }
   </script>
+  <style>
+  	.receiver{
+  		    width: 70%;
+  		    border: 0 none;
+  	}
+  </style>
  </head>
  <body>
  <div id="aliPayForm">
@@ -70,6 +101,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          	自动发货
         </div>
        </div></li>
+       <li><label>姓名：</label>
+       	<input id="receiver" class="receiver" maxlength="10"/>
+       </li>
+       <li><label>电话：</label>
+       <input id="receiverPhone" class="receiver" maxlength="20"/>
+       </li>
+       <li><label>地址：</label>
+       <input id="receiverAddress" class="receiver" maxlength="200">
+       </li>
      </ul>
     </div>
     <div class="sn-block mt30 fs30">

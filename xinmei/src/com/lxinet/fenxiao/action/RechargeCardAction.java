@@ -207,55 +207,57 @@ public class RechargeCardAction extends BaseAction {
 	
 	public void userUseRechargeCard() {
 		PrintWriter out = null;
+		JSONObject json = new JSONObject();
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		HttpSession session = request.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		User findUser = userService.findById(User.class, loginUser.getId());
-		String no = request.getParameter("no");
-		RechargeCard findRechargeCard = rechargeCardService.getByNo(no);
-		JSONObject json = new JSONObject();
-			if(findRechargeCard == null){
-				json.put("status", "0");
-				json.put("message", "充值卡不存在");
-			}else{
-				if(findRechargeCard.getStatus()==1){
-					json.put("status", "0");
-					json.put("message", "充值卡已被使用");
-				}else{
-					//添加财务信息
-					Financial financial = new Financial();
-					financial.setType(1);
-					financial.setMoney(findRechargeCard.getMoney());
-					financial.setNo(System.currentTimeMillis()+"");
-	            	//设置该交易操作人信息
-					financial.setOperator(loginUser.getName());
-					//设置用户
-					financial.setUser(findUser);
-					// 设置用户创建日期
-					financial.setCreateDate(new Date());
-					financial.setDeleted(false);
-					//设置余额
-					financial.setBalance(findUser.getCommission());
-					financial.setPayment("充值卡充值");
-					financial.setRemark("充值卡充值,充值卡卡号:"+findRechargeCard.getNo());
-					financialService.saveOrUpdate(financial);
-					findUser.setBalance(findUser.getBalance()+findRechargeCard.getMoney());
-					findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-					userService.saveOrUpdate(findUser);
-					//设置为已被使用
-					findRechargeCard.setStatus(1);
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					findRechargeCard.setUseTime(sdf.format(new Date()));
-					findRechargeCard.setUseUserNo(findUser.getNo());
-					rechargeCardService.saveOrUpdate(findRechargeCard);
-					json.put("status", "1");
-					json.put("message", "充值成功，充值金额:"+findRechargeCard.getMoney()+"元");
-				}
-		}
+//		HttpSession session = request.getSession();
+//		User loginUser = (User) session.getAttribute("loginUser");
+//		User findUser = userService.findById(User.class, loginUser.getId());
+//		String no = request.getParameter("no");
+//		RechargeCard findRechargeCard = rechargeCardService.getByNo(no);
+//			if(findRechargeCard == null){
+//				json.put("status", "0");
+//				json.put("message", "充值卡不存在");
+//			}else{
+//				if(findRechargeCard.getStatus()==1){
+//					json.put("status", "0");
+//					json.put("message", "充值卡已被使用");
+//				}else{
+//					//添加财务信息
+//					Financial financial = new Financial();
+//					financial.setType(1);
+//					financial.setMoney(findRechargeCard.getMoney());
+//					financial.setNo(System.currentTimeMillis()+"");
+//	            	//设置该交易操作人信息
+//					financial.setOperator(loginUser.getName());
+//					//设置用户
+//					financial.setUser(findUser);
+//					// 设置用户创建日期
+//					financial.setCreateDate(new Date());
+//					financial.setDeleted(false);
+//					//设置余额
+//					financial.setBalance(findUser.getCommission());
+//					financial.setPayment("充值卡充值");
+//					financial.setRemark("充值卡充值,充值卡卡号:"+findRechargeCard.getNo());
+//					financialService.saveOrUpdate(financial);
+//					findUser.setBalance(findUser.getBalance()+findRechargeCard.getMoney());
+//					findUser.setBalance(new BigDecimal(findUser.getBalance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+//					userService.saveOrUpdate(findUser);
+//					//设置为已被使用
+//					findRechargeCard.setStatus(1);
+//					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//					findRechargeCard.setUseTime(sdf.format(new Date()));
+//					findRechargeCard.setUseUserNo(findUser.getNo());
+//					rechargeCardService.saveOrUpdate(findRechargeCard);
+//					json.put("status", "1");
+//					json.put("message", "充值成功，充值金额:"+findRechargeCard.getMoney()+"元");
+//				}
+//		}
+		json.put("status", "0");
+		json.put("message", "暂不支持该功能！");
 		out.print(json.toString());
 		out.flush();
 		out.close();

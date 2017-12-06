@@ -130,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</a>
 				</li>
 				</c:if>
+				<!-- 
 				<c:if test="${config.rechargeCardIsOpen==1 }">
 				<li>
 					<a href="rechargeCard.jsp" class="block wbox" >
@@ -139,6 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</a>
 				</li>
 				</c:if>
+				 -->
 				<li>
 					<a href="financialList.jsp" class="block wbox" >
 						<label class="meb-list-ico" style="background:url('../images/ico-myCollection.png') no-repeat left center;background-size:1rem 1rem;">财务明细</label>

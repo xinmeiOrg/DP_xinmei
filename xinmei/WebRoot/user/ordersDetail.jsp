@@ -101,7 +101,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        </c:if>
        <c:if test="${orders.status==1 }">已付款</c:if>
        </p>
-       <p><label class="w3">订单摘要</label>：${orders.summary }</p>
+       <!-- <p><label class="w3">订单摘要</label>：${orders.summary }</p>  -->
+       <p><label class="w3">姓名</label>：${orders.receiver }</p>
+       <p><label class="w3">电话</label>：${orders.receiverPhone }</p>
+       <p><label class="w3">地址</label>：${orders.receiverAddress }</p>
       </div></li>
     </ul>
    </div>

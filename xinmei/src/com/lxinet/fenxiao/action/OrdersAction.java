@@ -12,11 +12,13 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lxinet.fenxiao.entities.Commission;
@@ -185,7 +187,7 @@ public class OrdersAction extends BaseAction {
 				int n = random.nextInt(9999);
 				n = n + 10000;
 				// 生成订单号
-				String no = "ORDERS" +  System.currentTimeMillis() + "" + n;
+				String no = "ORDERS" + System.currentTimeMillis() + "" + n;
 				newOrders.setNo(no);
 				// 设置订单创建日期
 				newOrders.setCreateDate(new Date());
@@ -239,16 +241,27 @@ public class OrdersAction extends BaseAction {
 
 		String payChannel = request.getParameter("payChannel");
 
+		String receiverParam = request.getHeader("receiverParam");
+
+		System.out.println(" receiverParam " + new String(Base64.decodeBase64(receiverParam)));
+
+		JSONObject receiverJson = JSON.parseObject(new String(Base64.decodeBase64(receiverParam)));
+
+		// 更新收货人信息
+		findOrders.setReceiver(receiverJson.getString("receiver"));
+		findOrders.setReceiverPhone(receiverJson.getString("receiverPhone"));
+		findOrders.setReceiverAddress(receiverJson.getString("receiverAddress"));
+		ordersService.saveOrUpdate(findOrders);
+
 		JSONObject json = new JSONObject();
 		if (loginUser == null || loginUser.getId() == null) {
 			json.put("status", "0");
 			json.put("message", "您未登陆或者登陆失效，请重新登陆");
 			json.put("href", "../login.jsp");
 		}
-		
-		
-		try{
-			
+
+		try {
+
 			checkOrder(loginUser, findOrders, no, payChannel);
 
 			User findUser = userService.findById(User.class, loginUser.getId());
@@ -258,27 +271,27 @@ public class OrdersAction extends BaseAction {
 			if (kamiList.size() < findOrders.getProductNum()) {
 				throw new BusinessException("库存不足，请联系管理员");
 			}
-			
+
 			PayStatus payStatus = PayStatus.NONPAYMENT;
 
-			if(PayChannel.ALI_PAY.toString().equals(payChannel)){
-				String aliPayForm = aliWapPayService.createAliWapPayInfo(findOrders.getNo(), findOrders.getMoney(), findOrders.getProductName(), findOrders.getProductName(), "BUY", findOrders.getId());
+			if (PayChannel.ALI_PAY.toString().equals(payChannel)) {
+				String aliPayForm = aliWapPayService.createAliWapPayInfo(findOrders.getNo(), findOrders.getMoney(),
+						findOrders.getProductName(), findOrders.getProductName(), "BUY", findOrders.getId());
 				json.put("aliPayForm", aliPayForm);
-			}else if(PayChannel.AMOUNT_PAY.toString().equals(payChannel)){
+			} else if (PayChannel.AMOUNT_PAY.toString().equals(payChannel)) {
 				findUser.setBalance(findUser.getBalance() - findOrders.getMoney());
 				if (findUser.getStatus() == 0) {
 					findUser.setStatus(1);
 					findUser.setStatusDate(new Date());
 				}
 				userService.saveOrUpdate(findUser);
-//				findOrders.setStatus(1);
-//				ordersService.saveOrUpdate(findOrders);
+				// findOrders.setStatus(1);
+				// ordersService.saveOrUpdate(findOrders);
 				payStatus = PayStatus.PAID;
 			}
-			
 
 			if (payStatus == PayStatus.PAID) {
-				
+
 				// 支付完成生成消费信息
 				ordersService.generateCosumeInfo(findOrders.getNo());
 
@@ -287,33 +300,29 @@ public class OrdersAction extends BaseAction {
 				json.put("no", findOrders.getNo());
 
 			}
-			
-			
-			
-		}catch(BusinessException e){
+
+		} catch (BusinessException e) {
 			System.out.println("BusinessException : " + e.getMessage());
 			json.put("message", e.getMessage());
 			json.put("status", "0");
 		}
 
-		
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		out.print(json.toString());
 		out.flush();
 		out.close();
 		return;
 	}
-	
-	
 
 	/**
 	 * 校验订单
+	 * 
 	 * @param loginUser
 	 * @param findOrders
 	 * @param no
@@ -336,8 +345,6 @@ public class OrdersAction extends BaseAction {
 			throw new BusinessException("该订单已付款，请不要重复提交支付");
 		}
 	}
-
-	
 
 	/**
 	 * 订单详情

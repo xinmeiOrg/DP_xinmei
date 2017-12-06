@@ -157,7 +157,10 @@
 	                                <option value="1" <#if config.onlinePayIsOpen==1>selected="selected"</#if>>可用</option>
 	                            </select>
 	                        </td>
+	                        <!-- 充值卡充值 -->
+	                        <input type="text" value="0" name="config.rechargeCardIsOpen" id="rechargeCardIsOpen">
 	                    </tr>
+	                    <!--
 	                    <tr>
 	                        <td>
 	                            <label for="status" class="control-label x120">充值卡充值：</label>
@@ -167,6 +170,7 @@
 	                            </select>
 	                        </td>
 	                    </tr>
+	                    -->
                 </tbody>
             </table>
         </div>
