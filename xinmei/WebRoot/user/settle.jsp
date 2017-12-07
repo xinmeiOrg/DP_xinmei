@@ -22,6 +22,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <script type="text/javascript">
   
+  $(function(){
+		$.ajax({
+		    url: "userInfoJson",
+		    type: "GET",
+		    dataType: "json",
+		    async: false,
+		    success: function(data) {
+		        $("#receiver").val(data.receiver);
+		        $("#receiverPhone").val(data.receiverPhone);
+		        $("#receiverAddress").val(data.receiverAddress);
+		    }
+		});
+	});
+  
   function pay(){
 	  var receiver = $('#receiver').val();
 	  var receiverPhone = $('#receiverPhone').val();

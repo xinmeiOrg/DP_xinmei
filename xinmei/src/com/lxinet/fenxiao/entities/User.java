@@ -71,6 +71,41 @@ public class User extends BaseBean implements java.io.Serializable {
 	 */
 	private Integer loginCount;
 	
+	/**
+	 * 收货人
+	 */
+	private String receiver; 
+	/**
+	 * 收货人电话
+	 */
+	private String receiverPhone;
+	/**
+	 * 收货人地址
+	 */
+	private String receiverAddress;
+	
+	
+
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	public String getReceiverPhone() {
+		return receiverPhone;
+	}
+	public void setReceiverPhone(String receiverPhone) {
+		this.receiverPhone = receiverPhone;
+	}
+	public String getReceiverAddress() {
+		return receiverAddress;
+	}
+	public void setReceiverAddress(String receiverAddress) {
+		this.receiverAddress = receiverAddress;
+	}
+
+	
 	public String getName() {
 		return name;
 	}

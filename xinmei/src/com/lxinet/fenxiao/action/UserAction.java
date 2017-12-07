@@ -439,6 +439,40 @@ public class UserAction extends BaseAction {
 		out.close();
 	}
 	
+
+	public void changeReceiver() {
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String receiver = request.getParameter("receiver");
+		String receiverPhone = request.getParameter("receiverPhone");
+		String receiverAddress = request.getParameter("receiverAddress");
+		
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		User findUser = userService.findById(User.class, loginUser.getId());
+		JSONObject json = new JSONObject();
+		try {
+			
+				findUser.setReceiver(receiver);
+				findUser.setReceiverPhone(receiverPhone);
+				findUser.setReceiverAddress(receiverAddress);
+
+		    	userService.saveOrUpdate(findUser);
+		    	json.put("status", "1");
+				json.put("message", "修改成功");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		out.print(json);
+		out.flush();
+		out.close();
+	}
+	
 	public void resetPassword() {
 		PrintWriter out = null;
 		try {

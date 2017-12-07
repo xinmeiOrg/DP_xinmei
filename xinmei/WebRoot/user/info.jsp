@@ -100,6 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<em class="delete" style="display:none" name="Wap_reg_person_001"></em>
 		</div>
+		<a href="changeReceiver.jsp" name="Wap_reg_person_005" class="first-step sn-btn sn-btn-big sn-btn-block m30 sn-btn-positive">修改收货信息</a>
 		<a href="changePassword.jsp" name="Wap_reg_person_005" class="first-step sn-btn sn-btn-big sn-btn-block m30 sn-btn-positive">修改密码</a>
 	</section>
 	<script type="text/javascript" src="../js/zepto.min.js"></script>

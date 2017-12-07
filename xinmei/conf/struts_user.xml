@@ -34,6 +34,8 @@
 	<package name="userCenter" extends="struts-default" namespace="/user">
     	<action name="changePassword" class="userAction" method="changePassword">
     	</action>
+    	<action name="changeReceiver" class="userAction" method="changeReceiver">
+    	</action>
     	<action name="logout" class="userAction" method="logout">
     	</action>
     	<action name="userInfoJson" class="userAction" method="userInfoJson">
