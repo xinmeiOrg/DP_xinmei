@@ -44,7 +44,7 @@ String id = request.getParameter("id");
     <div class="pic-slider lazyimg" style="visibility: visible;">
         <ul style="width: 3750px;">
 						<li class="item" data-index="0" style="width: 750px; left: 0px; transition-duration: 0ms; -webkit-transition-duration: 0ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
-						<img data-name="prodDetail_none_main_image" id="propicture" src="${product.picture }">
+						<img data-name="prodDetail_none_main_image" id="propicture" src="admin/downloadImages?fileName=${product.picture }">
 						</li>
         </ul>
     </div>

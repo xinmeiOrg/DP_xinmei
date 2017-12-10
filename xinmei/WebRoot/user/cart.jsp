@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="wbox "> 
            <div class="pro-img pr"> 
             <a href="javascript:void(0)"> 
-            <img src="../${requestScope.product.picture }"/> </a> 
+            <img src="../admin/downloadImages?fileName=${requestScope.product.picture }"/> </a> 
             <div class="pro-mask"></div> 
            </div> 
            <div class="pro-box"> 

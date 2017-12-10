@@ -5,7 +5,7 @@
         $(this).bjuiajax('ajaxDone', json)
         if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
             $('#picture').val(json.filename)
-            $('#picture_span_pic').html('<img src="../'+ json.filename +'" height="80px">')
+            $('#picture_span_pic').html('<img src="downloadImages?fileName='+ json.filename +'" height="80px">')
         }
     }
 </script>
@@ -29,9 +29,27 @@ function S_NodeCheck(e, treeId, treeNode) {
 }
 //单击事件
 function S_NodeClick(event, treeId, treeNode) {
-    var zTree = $.fn.zTree.getZTreeObj(treeId);
-    zTree.checkNode(treeNode, !treeNode.checked, true, true);
-    return false;
+	
+	var zTree = $.fn.zTree.getZTreeObj(treeId),
+        nodes = zTree.getCheckedNodes(true);
+    var ids = '', names = '';
+    for (var i = 0; i < nodes.length; i++) {
+        ids   += ','+ nodes[i].id;
+        names += ','+ nodes[i].name;
+    }
+    if (ids.length > 0) {
+        ids = ids.substr(1), names = names.substr(1);
+    }
+    console.log(ids);
+    var $from = $($('#'+ treeId).data('fromObj'));
+    if ($from && $from.length)
+        $from.val(names);
+    $("#fatherId2").val(ids);
+
+    //var zTree = $.fn.zTree.getZTreeObj(treeId);
+    //console.log(zTree);
+    //zTree.checkNode(treeNode, !treeNode.checked, true, true);
+    //return false;
 }
 </script>
 
@@ -52,7 +70,7 @@ function S_NodeClick(event, treeId, treeNode) {
 		                           <label for="fatherId" class="control-label x90">上级分类：</label>
 		                       <input type="hidden" name="product.productCate.id" id="fatherId2" value="0">
 	                        	<input type="text" name="menus" id="fathername" data-toggle="selectztree" size="18" data-tree="#j_select_tree2" data-rule="required" readonly>
-	                                <ul id="j_select_tree2" class="ztree hide" data-toggle="ztree" data-expand-all="true" ="true" data-chk-style="radio" data-radio-type="all" data-on-check="S_NodeCheck" data-on-click="S_NodeClick">
+	                                <ul id="j_select_tree2" class="ztree hide" data-toggle="ztree" data-expand-all="true" data-check-enable="true" data-chk-style="radio" data-radio-type="all" data-on-check="S_NodeCheck" data-on-click="S_NodeClick">
 				                    ${zNodes}
 				                    </ul>
 		                      </td>

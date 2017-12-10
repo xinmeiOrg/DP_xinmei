@@ -115,9 +115,9 @@ function MainMenuClick(event, treeId, treeNode) {
 }
 </script>
 <!-- for doc begin -->
-<link type="text/css" rel="stylesheet" href="/js/syntaxhighlighter-2.1.382/styles/shCore.css"/>
-<link type="text/css" rel="stylesheet" href="/js/syntaxhighlighter-2.1.382/styles/shThemeEclipse.css"/>
-<script type="text/javascript" src="/js/syntaxhighlighter-2.1.382/scripts/brush.js"></script>
+<link type="text/css" rel="stylesheet" href="/xinmei/res/bjui/js/syntaxhighlighter-2.1.382/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="/xinmei/res/bjui/js/syntaxhighlighter-2.1.382/styles/shThemeEclipse.css"/>
+<script type="text/javascript" src="/xinmei/res/bjui/js/syntaxhighlighter-2.1.382/scripts/brush.js"></script>
 <link href="doc/doc.css" rel="stylesheet">
 <script type="text/javascript">
 $(function(){

@@ -215,7 +215,7 @@ body{margin: 0 auto;padding-bottom:2rem;color:#333;background:#F2F2F2;overflow-x
 .buy-choose-detail-set-v input[type='radio']{background:0;border:0 none}
 .buy-choose-detail-set-v input[type='radio']:checked+label{background:#2e8ffd;border-color:#2e8ffd;color:#FFF}
 .shopping-car{position:relative;z-index:101}
-.shopping-car>div{position:fixed;left:0;bottom:0;width:100%;height:2rem;padding:.2rem 0;background:rgba(0,0,0,.9)}
+.shopping-car>div{position:fixed;left:0;bottom:0;width:100%;height:2rem;padding:.2rem 0;background:#FFF}
 .shopping-car>div,.shopping-car-fun{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:center}
 .shopping-car-fun{-webkit-box-flex:1;-webkit-box-pack:end}
 .shopping-car-fun a:nth-child(1),.shopping-car-fun a:nth-child(2){display:block;width:4rem;height:1.6rem;margin-right:.6rem;line-height:1.6rem;color:#fff;font-size:.6rem;text-align:center;background-color:#e21d1d;border-radius:.2rem}
