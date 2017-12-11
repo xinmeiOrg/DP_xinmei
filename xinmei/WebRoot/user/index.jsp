@@ -167,12 +167,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="btn-cont" id="tanchuan"><a href="logout" class="sn-btn sn-btn-dark-big sn-btn-outline">退出</a></div>
  
 
-<script type="text/javascript" src="/RES/wap/common/script/lib/zepto/1.1.4/zepto.min.js?v=3.1.3"></script>
+<script type="text/javascript" src="../js/zepto.min.js?v=3.1.3"></script>
 <script type="text/javascript" src="http://passport.suning.com/ids/js/passport.js?v=3.1.3"></script>
-<script type="text/javascript" src="/RES/wap/common/script/module/alertBox/2.0.0/alertBox.js?v=3.1.3"></script>
-<script type="text/javascript" src="/RES/wap/accountcenterv2/script/myneedtodoList.js?v=3.1.3"></script>
+<script type="text/javascript" src="../js/alertBox.js?v=3.1.3"></script>
+<script type="text/javascript" src="../js/myneedtodoList.js?v=3.1.3"></script>
 
-<script type="text/javascript" src="/RES/wap/common/script/res/buriedpoint.js?v=3.1.3" id="mts-buriedpoint" 
+<script type="text/javascript" src="../js/buriedpoint.js?v=3.1.3" id="mts-buriedpoint" 
 	mts-path-root="/RES" mts-cache-version="3.1.3">
 </script>
 

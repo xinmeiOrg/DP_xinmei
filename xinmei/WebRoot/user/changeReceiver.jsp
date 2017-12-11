@@ -12,13 +12,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta content="telephone=no" name="format-detection">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/cart.css">
 	<title>修改收货人信息</title>
-	<script type="text/javascript" async="" src="../js/aywmq.js"></script>
-	<script async="" src="../js/analytics.js"></script>
-	<script type="text/javascript" async="" src="../js/da_opt.js"></script>
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<%@ include file="../header.jsp" %>
+	<link rel="stylesheet" type="text/css" href="../css/style.css?${ts }">
+	<link rel="stylesheet" type="text/css" href="../css/cart.css?${ts }">
+	<script type="text/javascript" async="" src="../js/aywmq.js?${ts }"></script>
+	<script async="" src="../js/analytics.js?${ts }"></script>
+	<script type="text/javascript" async="" src="../js/da_opt.js?${ts }"></script>
+	<script type="text/javascript" src="../js/jquery.min.js?${ts }"></script>
 	<script type="text/javascript">
 	$(function(){
 		$.ajax({

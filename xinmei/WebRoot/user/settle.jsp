@@ -17,10 +17,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta content="telephone=no" name="format-detection" />
 <title>结算信息</title>
-<link rel="stylesheet" href="../css/cart2.css" />
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/zepto.min.js"></script>
-<script type="text/javascript" src="../js/base64.js"></script>
+<%@ include file="../header.jsp" %>
+<link rel="stylesheet" href="../css/cart2.css?${ts }" />
+<script type="text/javascript" src="../js/jquery.min.js?${ts }"></script>
+<script type="text/javascript" src="../js/zepto.min.js?${ts }"></script>
+<script type="text/javascript" src="../js/base64.js?${ts }"></script>
 <script type="text/javascript"
 	src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 

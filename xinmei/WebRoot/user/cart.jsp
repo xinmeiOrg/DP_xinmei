@@ -14,7 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta content="telephone=no" name="format-detection" />
   <title>提交订单</title>
-  <link rel="stylesheet" href="../css/cart1.css" />
+  <%@ include file="../header.jsp" %>
+  <link rel="stylesheet" href="../css/cart1.css?${ts }" />
   <script type="text/javascript" src="../js/jquery.min.js"></script>
   <script type="text/javascript">
   	var money = ${requestScope.product.money };

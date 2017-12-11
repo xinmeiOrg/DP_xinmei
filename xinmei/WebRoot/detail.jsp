@@ -15,12 +15,13 @@ String id = request.getParameter("id");
     <meta content="telephone=no" name="format-detection">
     <meta name="wap-font-scale" content="no">
     <title id="title">${product.title}</title>
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/detail.css">
-    <script type="text/javascript" async="" src="js/aywmq.js"></script>
-    <script async="" src="js/analytics.js"></script>
-    <script type="text/javascript" async="" src="js/da_opt.js"></script>
-    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <%@ include file="../header.jsp" %>
+    <link rel="stylesheet" type="text/css" href="css/base.css?${ts }">
+    <link rel="stylesheet" type="text/css" href="css/detail.css?${ts }">
+    <script type="text/javascript" async="" src="js/aywmq.js?${ts }"></script>
+    <script async="" src="js/analytics.js?${ts }"></script>
+    <script type="text/javascript" async="" src="js/da_opt.js?${ts }"></script>
+    <script type="text/javascript" src="js/zepto.min.js?${ts }"></script>
     <script>
     //商品ID
     var id = "<%=id%>";
